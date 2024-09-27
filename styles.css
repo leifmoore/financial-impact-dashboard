@@ -238,6 +238,12 @@ button:hover {
     background-color: #ffffff;
 }
 
+/*Assumptions Section*/
+#assumptions-list{
+    margin-left: 20px;
+    
+}
+
 @media screen and (max-width: 768px) {
     .data-grid {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
