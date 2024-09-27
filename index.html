@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Financial Impact Model Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <img src="assets/logo.svg" alt="Company Logo" id="logo">
+        <h1>Financial Impact Model Dashboard</h1>
+    </header>
+    <main>
+        <section id="inputs">
+            <h2>Input Variables</h2>
+                
+                <label for="staffSalary">Staff Salary (£)
+                    <span class="tooltip">?
+                        <span class="tooltiptext">Enter the average salary per staff member.</span>
+                    </span>
+                </label>
+                <input type="number" id="staffSalary" value="29460">
+            
+                <label for="staffBeforeAttrition">Number of Staff Before Attrition
+                    <span class="tooltip">?
+                        <span class="tooltiptext">Total number of staff before implementing attrition strategy.</span>
+                    </span>
+                </label>
+                <input type="number" id="staffBeforeAttrition" value="20">
+            
+                <label for="staffAfterAttrition">Target Number of Staff After Attrition
+                    <span class="tooltip">?
+                        <span class="tooltiptext">Desired number of staff after attrition.</span>
+                    </span>
+                </label>
+                <input type="number" id="staffAfterAttrition" value="10">
+            
+                <label for="developmentCost">Development Team Monthly Cost (£)
+                    <span class="tooltip">?
+                        <span class="tooltiptext">Monthly cost of the software development team.</span>
+                    </span>
+                </label>
+                <input type="number" id="developmentCost" value="10000">
+            
+                <label for="developmentPeriod">Development Period (Months)
+                    <span class="tooltip">?
+                        <span class="tooltiptext">Duration of the software development phase.</span>
+                    </span>
+                </label>
+                <input type="number" id="developmentPeriod" value="8">
+            
+                <label for="inflationRate">Annual Inflation Rate (%)
+                    <span class="tooltip">?
+                        <span class="tooltiptext">Expected annual increase in salaries and costs.</span>
+                    </span>
+                </label>
+                <input type="number" id="inflationRate" value="2">
+            
+                <label for="projectionYears">Projection Time Frame (Years)
+                    <span class="tooltip">?
+                        <span class="tooltiptext">Number of years to project the financials.</span>
+                    </span>
+                </label>
+                <input type="range" id="projectionYears" min="1" max="10" value="5" oninput="updateProjectionYearsLabel(this.value)">
+                <span id="projectionYearsLabel">5 Years</span>
+            
+                <label for="efficiencySavings">Annual Efficiency Savings (£)
+                    <span class="tooltip">?
+                        <span class="tooltiptext">Estimated savings from increased efficiency.</span>
+                    </span>
+                </label>
+                <input type="number" id="efficiencySavings" value="10000">
+            
+                <!-- Best-Case and Worst-Case Scenario Inputs -->
+                <label for="bestCaseReduction">Best-Case Staff Reduction (%)
+                    <span class="tooltip">?
+                        <span class="tooltiptext">Maximum expected percentage of staff reduction.</span>
+                    </span>
+                </label>
+                <input type="number" id="bestCaseReduction" value="75">
+            
+                <label for="worstCaseReduction">Worst-Case Staff Reduction (%)
+                    <span class="tooltip">?
+                        <span class="tooltiptext">Minimum expected percentage of staff reduction.</span>
+                    </span>
+                </label>
+                <input type="number" id="worstCaseReduction" value="50">
+            
+                <!-- KPIs Selection -->
+                <h3>Select KPIs to Display</h3>
+                <label><input type="checkbox" id="kpiTotalDevCost" checked> Total Development Cost</label>
+                <label><input type="checkbox" id="kpiAnnualStaffSavings" checked> Annual Staff Savings</label>
+                <label><input type="checkbox" id="kpiNetCashFlow" checked> Net Cash Flow Over Time</label>
+                <label><input type="checkbox" id="kpiROI" checked> Return on Investment (ROI)</label>
+                <label><input type="checkbox" id="kpiPaybackPeriod" checked> Payback Period</label>
+            
+                <!-- Update Button -->
+                <button onclick="updateOutputs()">Update Dashboard</button>
+            </section>
+            
+        </section>
+        <section id="outputs">
+            <h2>Output Metrics</h2>
+            
+                <!-- Total Development Cost -->
+                <div id="outputTotalDevCost" class="output-item">
+                    <h3>Total Development Cost</h3>
+                    <p id="totalDevCostValue">£0</p>
+                </div>
+            
+                <!-- Annual Staff Savings -->
+                <div id="outputAnnualStaffSavings" class="output-item">
+                    <h3>Annual Staff Savings</h3>
+                    <p id="annualStaffSavingsValue">£0</p>
+                </div>
+            
+                <!-- Net Cash Flow Over Time -->
+                <div id="outputNetCashFlow" class="output-item">
+                    <h3>Net Cash Flow Over Time</h3>
+                    <p>See Visualizations Below</p>
+                </div>
+            
+                <!-- Return on Investment (ROI) -->
+                <div id="outputROI" class="output-item">
+                    <h3>Return on Investment (ROI)</h3>
+                    <p id="roiValue">0%</p>
+                </div>
+            
+                <!-- Payback Period -->
+                <div id="outputPaybackPeriod" class="output-item">
+                    <h3>Payback Period</h3>
+                    <p id="paybackPeriodValue">0 Years</p>
+                </div>
+            </section>
+            
+        </section>
+        <section id="visualizations">
+            <h2>Visualizations</h2>
+            
+                <!-- Chart Type Selection -->
+                <label for="chartType">Select Chart Type:</label>
+                <select id="chartType" onchange="updateChart()">
+                    <option value="line">Line Chart</option>
+                    <option value="bar">Bar Chart</option>
+                    <option value="pie">Pie Chart</option>
+                    <option value="area">Area Chart</option>
+                </select>
+            
+                <!-- Canvas for Chart -->
+                <canvas id="financialChart" width="800" height="400"></canvas>
+            
+                <!-- Data Table -->
+                <h3>Financial Data Table</h3>
+                <table id="dataTable">
+                    <!-- Table headers and data will be inserted dynamically -->
+                </table>
+            </section>
+            <button onclick="exportToCSV()">Export Data as CSV</button>
+
+            
+        </section>
+        <section id="assumptions">
+            <h2>Assumptions</h2>
+                <ul>
+                    <li>Staff salaries and costs increase annually by the inflation rate.</li>
+                    <li>Efficiency savings remain constant over the projection period.</li>
+                    <li>No additional development costs after the initial development period.</li>
+                    <li>Staff reductions occur evenly over the projection period.</li>
+                </ul>
+            </section>
+            
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Scudamore's Punting Company</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
