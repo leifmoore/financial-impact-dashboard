@@ -13,15 +13,17 @@
         <h1>Financial Impact Model Dashboard</h1>
     </header>
     <main>
+        <h2>Input Variables</h2>
         <section id="inputs">
-            <h2>Input Variables</h2>
-        
             <div class="card">
                 <h3>Staff Information</h3>
                 <!-- Staff Salary -->
-                <label for="staffSalary">Staff Salary (£)
-                    <span class="tooltip">?
-                        <span class="tooltiptext">Enter the average salary per staff member.</span>
+                <label for="staffSalary">
+                    <span>
+                        Staff Salary (£)
+                        <span class="tooltip">?
+                            <span class="tooltiptext">Enter the average salary per staff member.</span>
+                        </span>
                     </span>
                 </label>
                 <input type="number" id="staffSalary" value="29460">
@@ -118,15 +120,13 @@
                 <label><input type="checkbox" id="kpiROI" checked> Return on Investment (ROI)</label>
                 <label><input type="checkbox" id="kpiPaybackPeriod" checked> Payback Period</label>
             </div>
-        
-            <!-- Update Button -->
-            <button onclick="updateOutputs()">Update Dashboard</button>
         </section>
+         <!-- Update Button -->
+         <button onclick="updateOutputs()">Update Dashboard</button>
             
         </section>
+        <h2>Output Metrics</h2>
         <section id="outputs">
-            <h2>Output Metrics</h2>
-            
                 <!-- Total Development Cost -->
                 <div id="outputTotalDevCost" class="output-item">
                     <h3>Total Development Cost</h3>
@@ -173,12 +173,11 @@
             
                 <!-- Canvas for Chart -->
                 <canvas id="financialChart" width="800" height="400"></canvas>
-            
-                <!-- Data Table -->
-                <h3>Financial Data Table</h3>
-                <table id="dataTable">
-                    <!-- Table headers and data will be inserted dynamically -->
-                </table>
+                   <!-- Data Grid -->
+                    <h3>Financial Data</h3>
+                    <div id="dataGrid" class="data-grid">
+                        <!-- Grid items will be inserted dynamically -->
+                    </div>
             </section>
             <button onclick="exportToCSV()">Export Data as CSV</button>
 

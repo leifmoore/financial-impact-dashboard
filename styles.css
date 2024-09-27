@@ -18,12 +18,18 @@ body {
     color: var(--primary-color);
     background-color: var(--secondary-color);
     padding: 20px;
+
 }
 
-/* Header */
+/* Header & Footer */
 header {
     text-align: center;
     margin-bottom: 40px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
 }
 
 #logo {
@@ -75,7 +81,8 @@ h2 {
 }
 
 .card label {
-    display: block;
+    display: flex;
+    align-items: center;
     margin-top: 15px;
     font-weight: bold;
 }
@@ -96,8 +103,8 @@ h2 {
 }
 
 .card .tooltip {
-    float: right;
-    margin-top: -25px;
+    
+    margin-top: 5px;
     cursor: pointer;
 }
 
@@ -154,7 +161,7 @@ button:hover {
 /* Tooltips */
 .tooltip {
     position: relative;
-    display: inline-block;
+    display: flex;
     cursor: pointer;
     color: var(--accent-color);
     margin-left: 5px;
@@ -181,6 +188,62 @@ button:hover {
     visibility: visible;
     opacity: 1;
 }
+
+
+/* Outputs Section */
+
+#outputs{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr;
+    gap: 5%;
+}
+
+.output-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Financial Data Section*/
+/* Data Grid Styling */
+.data-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 10px;
+    margin-bottom: 20px;
+}
+
+.grid-column {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.grid-item {
+    padding: 10px;
+    text-align: center;
+}
+
+.grid-item.header {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+}
+
+.grid-item.data {
+    background-color: #ffffff;
+}
+
+@media screen and (max-width: 768px) {
+    .data-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

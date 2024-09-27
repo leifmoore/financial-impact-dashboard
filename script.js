@@ -1,10 +1,13 @@
+// Function to update the projection years label
 function updateProjectionYearsLabel(value) {
     document.getElementById('projectionYearsLabel').innerText = `${value} Years`;
 }
 
+// Global variables to store data
 let netCashFlowData = [];
 let years = [];
 
+// Function to update outputs and perform calculations
 function updateOutputs() {
     // Get input values
     const staffSalary = parseFloat(document.getElementById('staffSalary').value);
@@ -17,6 +20,22 @@ function updateOutputs() {
     const efficiencySavings = parseFloat(document.getElementById('efficiencySavings').value);
     const bestCaseReduction = parseFloat(document.getElementById('bestCaseReduction').value) / 100;
     const worstCaseReduction = parseFloat(document.getElementById('worstCaseReduction').value) / 100;
+
+    // Input validation
+    if (
+        isNaN(staffSalary) || isNaN(staffBefore) || isNaN(staffAfter) ||
+        isNaN(developmentCostMonthly) || isNaN(developmentPeriod) ||
+        isNaN(inflationRate) || isNaN(projectionYears) ||
+        isNaN(efficiencySavings) || isNaN(bestCaseReduction) || isNaN(worstCaseReduction)
+    ) {
+        alert("Please enter valid input values.");
+        return;
+    }
+
+    if (staffAfter > staffBefore) {
+        alert("Target number of staff after attrition cannot be greater than the number before attrition.");
+        return;
+    }
 
     // Calculate Total Development Cost
     const totalDevCost = developmentCostMonthly * developmentPeriod;
@@ -69,14 +88,15 @@ function updateOutputs() {
         document.getElementById('paybackPeriodValue').innerText = `> ${projectionYears} Years`;
     }
 
-    // Update Chart and Table
+    // Update Chart and Grid
     updateChart();
-    updateDataTable();
+    updateDataGrid(); // Changed from updateDataTable() to updateDataGrid()
 
     // Show or Hide KPIs based on selection
     toggleKPIs();
 }
 
+// Function to show or hide KPIs based on user selection
 function toggleKPIs() {
     document.getElementById('outputTotalDevCost').style.display = document.getElementById('kpiTotalDevCost').checked ? 'block' : 'none';
     document.getElementById('outputAnnualStaffSavings').style.display = document.getElementById('kpiAnnualStaffSavings').checked ? 'block' : 'none';
@@ -85,8 +105,10 @@ function toggleKPIs() {
     document.getElementById('outputPaybackPeriod').style.display = document.getElementById('kpiPaybackPeriod').checked ? 'block' : 'none';
 }
 
-let financialChart; // Global variable for the chart instance
+// Global variable for the chart instance
+let financialChart;
 
+// Function to update the chart
 function updateChart() {
     const chartType = document.getElementById('chartType').value;
 
@@ -138,21 +160,35 @@ function updateChart() {
     });
 }
 
-function updateDataTable() {
-    const table = document.getElementById('dataTable');
-    // Clear existing table
-    table.innerHTML = '';
+// Function to update the data grid with cumulative net cash flow stacked below each year
+function updateDataGrid() {
+    const dataGrid = document.getElementById('dataGrid');
+    // Clear existing grid
+    dataGrid.innerHTML = '';
 
-    // Create table headers
-    const headerRow = table.insertRow();
-    headerRow.insertCell().outerHTML = '<th>Year</th>';
-    headerRow.insertCell().outerHTML = '<th>Cumulative Net Cash Flow (£)</th>';
+    // Set the number of columns based on the number of years
+    dataGrid.style.gridTemplateColumns = `repeat(${years.length}, 1fr)`;
 
-    // Populate table data
+    // Loop through each year and create a column
     for (let i = 0; i < years.length; i++) {
-        const row = table.insertRow();
-        row.insertCell().innerText = years[i];
-        row.insertCell().innerText = `£${parseFloat(netCashFlowData[i]).toLocaleString()}`;
+        // Create a container for each column
+        const column = document.createElement('div');
+        column.className = 'grid-column';
+
+        // Create year cell
+        const yearCell = document.createElement('div');
+        yearCell.className = 'grid-item header';
+        yearCell.innerText = `Year ${i + 1}`;
+        column.appendChild(yearCell);
+
+        // Create cash flow cell
+        const cashFlowCell = document.createElement('div');
+        cashFlowCell.className = 'grid-item data';
+        cashFlowCell.innerText = `£${parseFloat(netCashFlowData[i]).toLocaleString()}`;
+        column.appendChild(cashFlowCell);
+
+        // Append the column to the data grid
+        dataGrid.appendChild(column);
     }
 }
 
@@ -161,6 +197,7 @@ window.onload = function() {
     updateOutputs();
 };
 
+// Function to export data as CSV
 function exportToCSV() {
     let csvContent = "Year,Cumulative Net Cash Flow (£)\n";
 
