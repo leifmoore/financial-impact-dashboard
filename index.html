@@ -15,49 +15,64 @@
     <main>
         <section id="inputs">
             <h2>Input Variables</h2>
-                
+        
+            <div class="card">
+                <h3>Staff Information</h3>
+                <!-- Staff Salary -->
                 <label for="staffSalary">Staff Salary (£)
                     <span class="tooltip">?
                         <span class="tooltiptext">Enter the average salary per staff member.</span>
                     </span>
                 </label>
                 <input type="number" id="staffSalary" value="29460">
-            
+        
+                <!-- Number of Staff Before Attrition -->
                 <label for="staffBeforeAttrition">Number of Staff Before Attrition
                     <span class="tooltip">?
                         <span class="tooltiptext">Total number of staff before implementing attrition strategy.</span>
                     </span>
                 </label>
                 <input type="number" id="staffBeforeAttrition" value="20">
-            
+        
+                <!-- Target Number of Staff After Attrition -->
                 <label for="staffAfterAttrition">Target Number of Staff After Attrition
                     <span class="tooltip">?
                         <span class="tooltiptext">Desired number of staff after attrition.</span>
                     </span>
                 </label>
                 <input type="number" id="staffAfterAttrition" value="10">
-            
+            </div>
+        
+            <div class="card">
+                <h3>Development Costs</h3>
+                <!-- Development Team Monthly Cost -->
                 <label for="developmentCost">Development Team Monthly Cost (£)
                     <span class="tooltip">?
                         <span class="tooltiptext">Monthly cost of the software development team.</span>
                     </span>
                 </label>
                 <input type="number" id="developmentCost" value="10000">
-            
+        
+                <!-- Development Period -->
                 <label for="developmentPeriod">Development Period (Months)
                     <span class="tooltip">?
                         <span class="tooltiptext">Duration of the software development phase.</span>
                     </span>
                 </label>
                 <input type="number" id="developmentPeriod" value="8">
-            
+            </div>
+        
+            <div class="card">
+                <h3>Financial Parameters</h3>
+                <!-- Annual Inflation Rate -->
                 <label for="inflationRate">Annual Inflation Rate (%)
                     <span class="tooltip">?
                         <span class="tooltiptext">Expected annual increase in salaries and costs.</span>
                     </span>
                 </label>
                 <input type="number" id="inflationRate" value="2">
-            
+        
+                <!-- Projection Time Frame -->
                 <label for="projectionYears">Projection Time Frame (Years)
                     <span class="tooltip">?
                         <span class="tooltiptext">Number of years to project the financials.</span>
@@ -65,40 +80,48 @@
                 </label>
                 <input type="range" id="projectionYears" min="1" max="10" value="5" oninput="updateProjectionYearsLabel(this.value)">
                 <span id="projectionYearsLabel">5 Years</span>
-            
+        
+                <!-- Annual Efficiency Savings -->
                 <label for="efficiencySavings">Annual Efficiency Savings (£)
                     <span class="tooltip">?
                         <span class="tooltiptext">Estimated savings from increased efficiency.</span>
                     </span>
                 </label>
                 <input type="number" id="efficiencySavings" value="10000">
-            
-                <!-- Best-Case and Worst-Case Scenario Inputs -->
+            </div>
+        
+            <div class="card">
+                <h3>Scenarios</h3>
+                <!-- Best-Case Staff Reduction -->
                 <label for="bestCaseReduction">Best-Case Staff Reduction (%)
                     <span class="tooltip">?
                         <span class="tooltiptext">Maximum expected percentage of staff reduction.</span>
                     </span>
                 </label>
                 <input type="number" id="bestCaseReduction" value="75">
-            
+        
+                <!-- Worst-Case Staff Reduction -->
                 <label for="worstCaseReduction">Worst-Case Staff Reduction (%)
                     <span class="tooltip">?
                         <span class="tooltiptext">Minimum expected percentage of staff reduction.</span>
                     </span>
                 </label>
                 <input type="number" id="worstCaseReduction" value="50">
-            
-                <!-- KPIs Selection -->
+            </div>
+        
+            <div class="card">
                 <h3>Select KPIs to Display</h3>
+                <!-- KPI Selection -->
                 <label><input type="checkbox" id="kpiTotalDevCost" checked> Total Development Cost</label>
                 <label><input type="checkbox" id="kpiAnnualStaffSavings" checked> Annual Staff Savings</label>
                 <label><input type="checkbox" id="kpiNetCashFlow" checked> Net Cash Flow Over Time</label>
                 <label><input type="checkbox" id="kpiROI" checked> Return on Investment (ROI)</label>
                 <label><input type="checkbox" id="kpiPaybackPeriod" checked> Payback Period</label>
-            
-                <!-- Update Button -->
-                <button onclick="updateOutputs()">Update Dashboard</button>
-            </section>
+            </div>
+        
+            <!-- Update Button -->
+            <button onclick="updateOutputs()">Update Dashboard</button>
+        </section>
             
         </section>
         <section id="outputs">
